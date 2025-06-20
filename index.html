@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酷課雲小學數學 OMO</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .header-bg {
+            background-image: linear-gradient(to right, #6EE7B7, #34D399); /* 淺綠到深綠漸變 */
+            color: white;
+            padding: 4rem 0;
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background-color: #10B981; /* 翠綠色 */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #059669; /* 深翠綠色 */
+        }
+        .section-title {
+            color: #374151; /* 深灰色 */
+            font-weight: 700;
+        }
+        .video-thumbnail {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+        }
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-thumbnail .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .video-thumbnail:hover .play-icon {
+            opacity: 1;
+        }
+        .ai-chat-box {
+            background-color: #F3F4F6; /* 淺灰色背景 */
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+        }
+        .ai-chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding-right: 0.5rem;
+            scroll-behavior: smooth;
+        }
+        .chat-message-user {
+            background-color: #D1FAE5; /* 淺綠色 */
+            align-self: flex-end;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0.75rem;
+            max-width: 80%;
+        }
+        .chat-message-ai {
+            background-color: #E0F2FE; /* 淺藍色 */
+            align-self: flex-start;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0.75rem;
+            max-width: 80%;
+        }
+        .ai-chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .ai-chat-input {
+            flex-grow: 1;
+            border-radius: 1.5rem;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #D1D5DB;
+            outline: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .ai-chat-send-btn {
+            background-color: #4B5563; /* 深灰色 */
+            color: white;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        .ai-chat-send-btn:hover {
+            background-color: #1F2937; /* 更深灰色 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header Section -->
+    <header class="header-bg shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-extrabold mb-4 animate-pulse">酷課雲小學數學 OMO</h1>
+            <p class="text-xl font-light mb-8">探索．發現．思考</p>
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed">
+                結合線上與線下學習，透過模組化影片、生活情境切入，引導學生自主學習，
+                搭配 AI 協作，激發思考，創造一個充滿活力的數學教室！
+            </p>
+            <a href="#courses" class="btn-primary mt-8 inline-block shadow-md hover:shadow-lg">開始探索課程</a>
+        </div>
+    </header>
+
+    <!-- EDT Steps Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl section-title text-center mb-12">EDT 三步驟，創造思考的教室！</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 探索 Explore -->
+                <div class="card p-6 text-center">
+                    <div class="text-6xl text-blue-500 mb-4">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">探索 (Explore)</h3>
+                    <ul class="list-disc list-inside text-left mx-auto max-w-xs space-y-2">
+                        <li>自學：觀看影片</li>
+                        <li>自學：習題練習</li>
+                    </ul>
+                    <p class="text-gray-600 mt-4">10-min</p>
+                </div>
+                <!-- 發現 Discover -->
+                <div class="card p-6 text-center">
+                    <div class="text-6xl text-green-500 mb-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">發現 (Discover)</h3>
+                    <ul class="list-disc list-inside text-left mx-auto max-w-xs space-y-2">
+                        <li>互學：實驗想法</li>
+                        <li>自學：與 AI 聊聊</li>
+                    </ul>
+                    <p class="text-gray-600 mt-4">20-min</p>
+                </div>
+                <!-- 思考 Think -->
+                <div class="card p-6 text-center">
+                    <div class="text-6xl text-purple-500 mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">思考 (Think)</h3>
+                    <ul class="list-disc list-inside text-left mx-auto max-w-xs space-y-2">
+                        <li>共學：思考體操</li>
+                        <li>導學：設立目標</li>
+                    </ul>
+                    <p class="text-gray-600 mt-4">10-min</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section id="courses" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl section-title text-center mb-12">精選課程</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Card 1 -->
+                <div class="card overflow-hidden">
+                    <div class="video-thumbnail">
+                        <img src="https://placehold.co/600x337/8B5CF6/ffffff?text=課程預覽：三角形" alt="課程預覽：三角形內角和">
+                        <div class="play-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">小五數學 | 三角形內角和的應用</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            描述：小敏他們去美術館參觀錯視錯覺藝術展，展覽利用簡單的幾何圖形創造圖案，讓人產生視覺上的錯覺。
+                        </p>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            <span class="mr-4"><i class="fas fa-user-graduate mr-1"></i>小五年級</span>
+                            <span><i class="fas fa-book mr-1"></i>數學</span>
+                        </div>
+                        <a href="#" class="btn-primary inline-block text-sm">觀看課程</a>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="card overflow-hidden">
+                    <div class="video-thumbnail">
+                        <img src="https://placehold.co/600x337/3B82F6/ffffff?text=課程預覽：多邊形" alt="課程預覽：多邊形性質">
+                        <div class="play-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">小五數學 | 多邊形與四邊形的性質</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            描述：深入探索各種多邊形的特性，了解其內角和的計算方式，並透過實例應用。
+                        </p>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            <span class="mr-4"><i class="fas fa-user-graduate mr-1"></i>小五年級</span>
+                            <span><i class="fas fa-book mr-1"></i>數學</span>
+                        </div>
+                        <a href="#" class="btn-primary inline-block text-sm">觀看課程</a>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="card overflow-hidden">
+                    <div class="video-thumbnail">
+                        <img src="https://placehold.co/600x337/EC4899/ffffff?text=課程預覽：幾何概念" alt="課程預覽：幾何概念">
+                        <div class="play-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">小五數學 | 幾何概念與生活應用</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            描述：將抽象的幾何概念與日常生活情境結合，幫助學生理解數學的實用性。
+                        </p>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            <span class="mr-4"><i class="fas fa-user-graduate mr-1"></i>小五年級</span>
+                            <span><i class="fas fa-book mr-1"></i>數學</span>
+                        </div>
+                        <a href="#" class="btn-primary inline-block text-sm">觀看課程</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="btn-primary inline-block shadow-md hover:shadow-lg">查看所有課程</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chat Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl section-title text-center mb-12">與酷 AI 聊聊！</h2>
+            <div class="flex justify-center">
+                <div class="ai-chat-box w-full lg:w-2/3 xl:w-1/2">
+                    <div class="ai-chat-messages" id="chat-messages">
+                        <!-- Initial AI message -->
+                        <div class="chat-message-ai flex flex-col items-start">
+                            <p>嗨！我是酷 AI，很高興能幫助你學習多邊形的內角和。你有什麼問題想問我嗎？</p>
+                        </div>
+                    </div>
+                    <div class="ai-chat-input-container">
+                        <input type="text" id="user-input" class="ai-chat-input" placeholder="輸入你的問題...">
+                        <button id="send-button" class="ai-chat-send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Resources Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl section-title mb-8">教學資源：酷課雲小學數學 OMO</h2>
+            <p class="text-lg text-gray-700 mb-8 max-w-3xl mx-auto">
+                專為教師設計，深入了解如何將酷課雲的線上資源與您的課堂教學完美結合，
+                實現「Online Merge Offline」的創新教學模式。
+            </p>
+            <a href="#" class="btn-primary inline-block shadow-md hover:shadow-lg">了解更多 OMO 模式</a>
+            <div class="mt-8 flex justify-center items-center space-x-4 text-gray-600">
+                <span><i class="fas fa-video mr-2"></i>邊看邊練習版</span>
+                <span><i class="fas fa-check-double mr-2"></i>自我檢核版</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 酷課雲小學數學 OMO. All rights reserved.</p>
+            <div class="mt-4 text-sm">
+                <a href="#" class="text-gray-400 hover:text-white mx-2">隱私權政策</a>
+                <span class="text-gray-500">|</span>
+                <a href="#" class="text-gray-400 hover:text-white mx-2">服務條款</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sendButton = document.getElementById('send-button');
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            sendButton.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            async function sendMessage() {
+                const prompt = userInput.value.trim();
+                if (!prompt) return;
+
+                // Add user message to chat
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.classList.add('chat-message-user', 'flex', 'flex-col', 'items-end', 'self-end');
+                userMessageDiv.innerHTML = `<p>${prompt}</p>`;
+                chatMessages.appendChild(userMessageDiv);
+                userInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+
+                // Show typing indicator
+                const typingIndicator = document.createElement('div');
+                typingIndicator.classList.add('chat-message-ai', 'flex', 'flex-col', 'items-start');
+                typingIndicator.innerHTML = `<p>酷 AI 正在思考中...</p>`;
+                chatMessages.appendChild(typingIndicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+
+                try {
+                    // LLM API call
+                    let chatHistory = [];
+                    // You might want to build a more robust chat history for better context
+                    // For this example, we just send the current prompt
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will provide this at runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    chatMessages.removeChild(typingIndicator); // Remove typing indicator
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const aiResponseText = result.candidates[0].content.parts[0].text;
+                        const aiMessageDiv = document.createElement('div');
+                        aiMessageDiv.classList.add('chat-message-ai', 'flex', 'flex-col', 'items-start');
+                        aiMessageDiv.innerHTML = `<p>${aiResponseText}</p>`;
+                        chatMessages.appendChild(aiMessageDiv);
+                    } else {
+                        const aiMessageDiv = document.createElement('div');
+                        aiMessageDiv.classList.add('chat-message-ai', 'flex', 'flex-col', 'items-start');
+                        aiMessageDiv.innerHTML = `<p>抱歉，我現在無法生成回應，請稍後再試。</p>`;
+                        chatMessages.appendChild(aiMessageDiv);
+                        console.error('API response structure unexpected:', result);
+                    }
+                } catch (error) {
+                    chatMessages.removeChild(typingIndicator); // Ensure typing indicator is removed on error
+                    const errorMessageDiv = document.createElement('div');
+                    errorMessageDiv.classList.add('chat-message-ai', 'flex', 'flex-col', 'items-start');
+                    errorMessageDiv.innerHTML = `<p>發生錯誤：無法連接到 AI。請檢查您的網路或稍後再試。</p>`;
+                    chatMessages.appendChild(errorMessageDiv);
+                    console.error('Error calling Gemini API:', error);
+                }
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom after AI response
+            }
+        });
+    </script>
+</body>
+</html>
